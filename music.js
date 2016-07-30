@@ -19,10 +19,4 @@ board.on('ready', function () {
             });
         }
     })
-
-    if(!piezo.isPlaying) {
-        temperature.on("change", function() {
-            console.log(this.celsius + "°C", this.fahrenheit + "°F");
-        });
-    }
 });
