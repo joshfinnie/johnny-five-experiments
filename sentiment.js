@@ -19,24 +19,25 @@ if(!args[0]){
 }
 
 board.on("ready", function (){
+    var anode = new five.Led.RGB({
+        pins: {
+            red: 11,
+            green: 10,
+            blue: 9
+        },
+    });
     client.stream('statuses/filter', {track: args[0]},  function(stream) {
         stream.on('data', function(tweet) {
-            var color = "#FFFFFF";
+            var color = "#000000";
             var sentimentScore = (sentiment(tweet.text).score);
+            console.log(tweet.text, sentimentScore);
             if(sentimentScore < 0){
                 color = "#FF0000";
             } else if(sentimentScore == 0) {
-                color = "#00FF00";
+                color = "#000000";
             } else {
                 color = "#0000FF";
             }
-            var anode = new five.Led.RGB({
-                pins: {
-                    red: 11,
-                    green: 10,
-                    blue: 9
-                },
-            });
             anode.color(color);
         });
 
