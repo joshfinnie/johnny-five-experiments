@@ -12,8 +12,14 @@ var client = new Twitter({
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
  
+var args = process.argv.slice(2);
+if(!args[0]){
+    console.log("Need a command line variable!");
+    process.exit();
+}
+
 board.on("ready", function (){
-    client.stream('statuses/filter', {track: 'donald trump'},  function(stream) {
+    client.stream('statuses/filter', {track: args[0]},  function(stream) {
         stream.on('data', function(tweet) {
             var color = "#FFFFFF";
             var sentimentScore = (sentiment(tweet.text).score);
